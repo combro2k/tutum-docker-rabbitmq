@@ -1,13 +1,13 @@
-FROM ubuntu:trusty
+FROM ubuntu:14.04
 MAINTAINER Martijn van Maurik <docker@vmaurik.nl>
 
+RUN apt-get update
 RUN echo "deb http://www.rabbitmq.com/debian/ testing main" >> /etc/apt/sources.list
-RUN apt-get install -y wget
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget
 RUN wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc -O /tmp/rabbitmq-signing-key-public.asc
 RUN apt-key add /tmp/rabbitmq-signing-key-public.asc
 
 # Install RabbitMQ
-RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y rabbitmq-server pwgen
 RUN rabbitmq-plugins enable rabbitmq_management
 
